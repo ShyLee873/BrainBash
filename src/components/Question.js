@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+const correctSound = new Audio('/sounds/correct.wav');
+const incorrectSound = new Audio('/sounds/incorrect.wav');
+
 function Question({ question, handleAnswer }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -32,6 +35,7 @@ function Question({ question, handleAnswer }) {
     setSelectedAnswer(answer);
     const correct = answer === question.correct_answer;
     setIsCorrect(correct);
+    correct ? correctSound.play() : incorrectSound.play();
   };
 
   const handleNext = () => {

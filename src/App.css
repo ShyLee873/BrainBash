@@ -24,7 +24,7 @@
 }
 
 .question-text {
-  background-color: dimgray;
+  background-color: navy;
   color: white;
   border: 5px solid white;
   padding: 45px;
@@ -33,15 +33,15 @@
 }
 
 .answer-buttons {
-  margin-top: 100px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 }
 
 .answerButton {
   padding: 15px;
-  margin-top: 25px;
-  background-color: dimgrey;
+  margin-top: 20px;
+  background-color: navy;
   border: 4px solid white;
   border-radius: 10px;
   width: 500px;
@@ -50,7 +50,7 @@
   cursor: pointer;
 }
 
-.start-screen {
+.start-screen, .score-card {
   border: 5px solid white;
   border-radius: 10px;
   width: 500px;
@@ -80,7 +80,7 @@
 .start-button, .replay, .next-button {
   margin: auto;
   margin-top: 50px;
-  background: #5E5DF0;
+  border: 2px solid white;
   border-radius: 999px;
   box-shadow: #5E5DF0 0 10px 20px -10px;
   box-sizing: border-box;
@@ -90,11 +90,18 @@
   font-weight: 700;
   line-height: 24px;
   opacity: 1;
-  outline: 0 solid transparent;
+  outline: 2px solid white;
   padding: 8px 18px;
   width: fit-content;
   word-break: break-word;
-  border: 0;
+}
+
+.start-button, .replay {
+  background: #f601e6;
+}
+
+.next-button {
+  background-color: navy;
 }
 
 .correct {
@@ -103,4 +110,18 @@
 
 .incorrect {
   background-color: red;
+}
+
+.fail {
+  color: red;
+  font-weight: bold;
+}
+
+.passing {
+  color: yellow;
+}
+
+.amazing {
+  color: green;
+  font-weight: bold;
 }
