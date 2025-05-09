@@ -10,7 +10,7 @@
   2px 2px 0 black;
   max-width: 175px;
   margin: auto;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
   border-radius: 50%;
   border: 5px solid white;
   padding: 15px;
@@ -106,22 +106,12 @@
 
 .correct {
   background-color: green;
+  box-shadow: 0 0 7px 3px limegreen,
+  0 0 10px 7px limegreen;
 }
 
 .incorrect {
   background-color: red;
-}
-
-.fail {
-  color: red;
-  font-weight: bold;
-}
-
-.passing {
-  color: yellow;
-}
-
-.amazing {
-  color: green;
-  font-weight: bold;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
 }

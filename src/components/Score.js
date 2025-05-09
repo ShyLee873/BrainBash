@@ -1,4 +1,8 @@
 import React from 'react';
+import './Score.css';
+
+const failSound = new Audio('/sounds/fail.mp3');
+const victorySound = new Audio('/sounds/victory.wav');
 
 function Score({ score, total }) {
   const percentage = Math.round((score / total) * 100);
@@ -8,12 +12,15 @@ function Score({ score, total }) {
   if (percentage <= 60) {
     grade = 'fail';
     feedback = 'Keep practicing!';
+    failSound.play();
   } else if (percentage >= 61 && percentage <= 79) {
     grade = 'passing';
-    feedback = 'Great! Keep practicing!'
+    feedback = 'Great! Keep practicing!';
+    victorySound.play();
   } else {
     grade = 'amazing';
     feedback = 'AMAZING!!'
+    victorySound.play();
   }
 
   return (

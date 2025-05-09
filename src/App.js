@@ -54,7 +54,12 @@ function App() {
       ) : showScore ? (
         <Score score={score} total={questions.length} />
       ) : (
-        <Question question={questions[currentIndex]} handleAnswer={handleAnswer} />
+        <Question
+          question={questions[currentIndex]}
+          handleAnswer={handleAnswer}
+          currentIndex={currentIndex}
+          totalQuestions={questions.length}
+        />
       )}
     </div>
   );

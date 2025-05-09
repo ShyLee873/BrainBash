@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import './Question.css';
 
 const correctSound = new Audio('/sounds/correct.wav');
 const incorrectSound = new Audio('/sounds/incorrect.wav');
 
-function Question({ question, handleAnswer }) {
+function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -66,6 +67,15 @@ function Question({ question, handleAnswer }) {
         })}
       </div>
 
+      <div className="progress-bar">
+        <div
+          className="progress-fill"
+          style={{
+            width: `${((currentIndex + 1) / totalQuestions) * 100}%`,
+          }}
+        ></div>
+      </div>
+      <p className="question-count">{currentIndex + 1} of {totalQuestions}</p>
       {selectedAnswer && (
         <div className="feedback">
           {/* {isCorrect ? '✅ Correct!' : '❌ Oops!'} */}

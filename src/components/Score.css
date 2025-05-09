@@ -1,0 +1,13 @@
+.fail {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .passing {
+    color: yellow;
+  }
+  
+  .amazing {
+    color: green;
+    font-weight: bold;
+  }
