@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Score.css';
 
 const failSound = new Audio('/sounds/fail.mp3');
 const victorySound = new Audio('/sounds/victory.wav');
 
-function Score({ score, total }) {
+function Score({ score, total, answerHistory }) {
+  const [showRecap, setShowRecap] = useState(false);
   const percentage = Math.round((score / total) * 100);
   let feedback;
   let grade;
@@ -26,11 +27,47 @@ function Score({ score, total }) {
   return (
     <div className="score-card">
       <h3>Quiz Complete!</h3>
-      <h1>You Scored:</h1>
+      <h2>You Scored:</h2>
       <h1 className={grade}>{percentage}%</h1>
-      <h2>{feedback}</h2>  
+      <h2>{feedback}</h2>
       <p>{score} out of {total} correct</p>
-      <button className="replay" onClick={() => window.location.reload()}>Play Again</button>
+
+      <div className="button-group">
+        <button className="recap" onClick={() => setShowRecap(!showRecap)}>
+          {showRecap ? 'Hide Recap' : 'Review Answers'}
+        </button>
+        <button className="replay" onClick={() => window.location.reload()}>
+          Play Again
+        </button>
+      </div>
+
+      {showRecap && (
+        <div className="responsive-recap">
+          <table className="recap-table">
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Your Answer</th>
+                <th>Correct Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {answerHistory.map((item, index) => (
+                <tr key={index}>
+                  <td dangerouslySetInnerHTML={{ __html: item.question }} />
+                  <td
+                    className={
+                      item.selected === item.correct ? 'correct' : 'incorrect'
+                    }
+                    dangerouslySetInnerHTML={{ __html: item.selected }}
+                  />
+                  <td dangerouslySetInnerHTML={{ __html: item.correct }} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>  
+      )}
     </div>
   );
 }

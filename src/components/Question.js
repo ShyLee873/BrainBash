@@ -7,7 +7,7 @@ const incorrectSound = new Audio('/sounds/incorrect.wav');
 function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [isCorrect, setIsCorrect] = useState(null);
+  const [, setIsCorrect] = useState(null);
 
   useEffect(() => {
     const answers = [
@@ -40,7 +40,11 @@ function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
   };
 
   const handleNext = () => {
-    handleAnswer(isCorrect);
+    handleAnswer(
+      selectedAnswer === question.correct_answer,
+      question,
+      selectedAnswer
+    );
   };
 
   return (

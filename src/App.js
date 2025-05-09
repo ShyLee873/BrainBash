@@ -10,6 +10,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
+  const [answerHistory, setAnswerHistory] = useState([]);
 
   // Fetch questions once quizSettings is set
   useEffect(() => {
@@ -25,8 +26,19 @@ function App() {
       .then((data) => setQuestions(data.results));
   }, [quizSettings]);
 
-  const handleAnswer = (isCorrect) => {
+  const handleAnswer = (isCorrect, question, selectedAnswer) => {
     if (isCorrect) setScore((prev) => prev + 1);
+    if (question){
+      setAnswerHistory((prev) => [
+        ...prev,
+        {
+          question: question.question,
+          selected: selectedAnswer,
+          correct: question.correct_answer,
+        },
+      ]);
+    }
+
     const nextIndex = currentIndex + 1;
     if (nextIndex < questions.length) {
       setCurrentIndex(nextIndex);
@@ -52,7 +64,11 @@ function App() {
       ) : questions.length === 0 ? (
         <p>Loading questions...</p>
       ) : showScore ? (
-        <Score score={score} total={questions.length} />
+        <Score
+          score={score}
+          total={questions.length}
+          answerHistory={answerHistory}
+        />
       ) : (
         <Question
           question={questions[currentIndex]}
