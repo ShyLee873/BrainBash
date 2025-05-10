@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Score.css';
 
 const failSound = new Audio('/sounds/fail.mp3');
@@ -13,16 +13,22 @@ function Score({ score, total, answerHistory }) {
   if (percentage <= 60) {
     grade = 'fail';
     feedback = 'Keep practicing!';
-    failSound.play();
   } else if (percentage >= 61 && percentage <= 79) {
     grade = 'passing';
     feedback = 'Great! Keep practicing!';
-    victorySound.play();
   } else {
     grade = 'amazing';
     feedback = 'AMAZING!!'
-    victorySound.play();
   }
+
+  // Play score screen sound once
+  useEffect((percentage) => {
+    if (percentage <= 60) {
+      failSound.play();
+    } else {
+      victorySound.play();
+    }
+  }, []);
 
   return (
     <div className="score-card">
