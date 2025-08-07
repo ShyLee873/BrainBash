@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BrainBash/static/css/main.0749218b.css",
+    "main.js": "/BrainBash/static/js/main.5c90c99d.js",
+    "static/js/453.9b7c74d1.chunk.js": "/BrainBash/static/js/453.9b7c74d1.chunk.js",
+    "index.html": "/BrainBash/index.html",
+    "main.0749218b.css.map": "/BrainBash/static/css/main.0749218b.css.map",
+    "main.5c90c99d.js.map": "/BrainBash/static/js/main.5c90c99d.js.map",
+    "453.9b7c74d1.chunk.js.map": "/BrainBash/static/js/453.9b7c74d1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0749218b.css",
+    "static/js/main.5c90c99d.js"
+  ]
+}
