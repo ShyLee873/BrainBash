@@ -119,3 +119,79 @@
   text-decoration: line-through;
   text-decoration-thickness: 2px;
 }
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .question-text {
+    padding: 30px;
+  }
+
+  .answer-buttons {
+    margin-top: 0;
+  }
+
+  .progress-bar {
+    width: 65%;
+  }
+
+  .next-button {
+    margin-top: 10px;
+  }
+
+  .responsive-recap {
+    max-height: 270px;
+  }
+}
+
+@media only screen
+  and (min-width: 425px)
+  and (max-width: 834px) {
+  
+  .App {
+    margin-top: 25px;
+  }
+
+  .start-screen, .score-card {
+    width: 400px;
+    padding: 0px;
+  }
+
+  .question-text {
+    padding: 20px;
+    width: 362px;
+  }
+
+  .answer-buttons {
+    margin-top: 10px;
+  }
+
+  .answerButton {
+    padding: 11px;
+    margin-top: 15px;
+    width: 414px;
+  }
+
+  .progress-bar {
+    margin-top: 15px;
+    width: 96%;
+  }
+
+  .next-button {
+    margin-top: 10px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .responsive-recap {
+    max-height: 275px;
+  }
+}
