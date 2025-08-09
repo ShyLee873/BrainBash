@@ -196,7 +196,7 @@
   }
 }
 
-@media only screen and (min-width: 380px) {
+@media only screen and (min-width: 380px) and (max-width: 424px) {
   .header {
     margin-bottom: 15px;
   }
