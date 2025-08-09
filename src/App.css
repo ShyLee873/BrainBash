@@ -202,7 +202,7 @@
   }
 
   .start-screen, .score-card {
-    width: 380px;
+    width: 375px;
     padding: 0px;
   }
 
@@ -218,7 +218,7 @@
   .answerButton {
     padding: 10px;
     margin-top: 10px;
-    width: 380px;
+    width: 375px;
   }
 
   .next-button {
