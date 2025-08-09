@@ -195,3 +195,37 @@
     max-height: 275px;
   }
 }
+
+@media only screen and (min-width: 390px) {
+  .header {
+    margin-bottom: 15px;
+  }
+
+  .start-screen, .score-card {
+    width: 380px;
+    padding: 0px;
+  }
+
+  .question-text {
+    padding: 10px;
+    width: 350px;
+  }
+
+  .answer-buttons {
+    margin-top: 5px;
+  }
+
+  .answerButton {
+    padding: 10px;
+    margin-top: 10px;
+    width: 380px;
+  }
+
+  .next-button {
+    margin-top: 10px;
+  }
+
+  .responsive-recap {
+    max-height: 275px;
+  }
+}
