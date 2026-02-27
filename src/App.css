@@ -1,18 +1,46 @@
+:root {
+  color-scheme: light dark;
+}
+
+html.force-light {
+  color-scheme: light;
+}
+
+html.force-dark {
+  color-scheme: dark;
+}
+
+body {
+   background-color: light-dark(#F25912, #211832);
+}
+
 .App {
   text-align: center;
   margin-top: 50px;
 }
 
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin: 15px;
+}
+
+.nav button{
+  background-color: transparent;
+  
+}
+
 .header {
-  background-color: rgb(24, 179, 231);
-  color: white;
+  background-color: light-dark(rgb(24, 179, 231), rgba(255, 138, 95, 1));
+  color: light-dark(white, #e1e1ff);
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, 2px 2px 0 black,
   2px 2px 0 black;
   max-width: 175px;
   margin: auto;
   margin-bottom: 70px;
   border-radius: 50%;
-  border: 5px solid white;
+  border: 5px solid light-dark(white, #e1e1ff);
   padding: 15px;
 }
 
@@ -57,7 +85,7 @@
   margin: auto;
   padding: 15px;
   color: white;
-  background-color: darkblue;
+  background-color: #412B6B;
 }
 
 .start-options {
