@@ -49,7 +49,8 @@ function App() {
 
     fetch(apiUrl)
       .then((res) => res.json())
-      .then((data) => setQuestions(data.results));
+      .then((data) => setQuestions(Array.isArray(data.results) ? data.results : []))
+      .catch(() => setQuestions([]));
   }, [quizSettings]);
 
   const handleAnswer = (isCorrect, question, selectedAnswer) => {

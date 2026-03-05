@@ -10,6 +10,8 @@ function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
   const [, setIsCorrect] = useState(null);
 
   useEffect(() => {
+    if (!question) return null;
+    
     const answers = [
       ...question.incorrect_answers,
       question.correct_answer,
