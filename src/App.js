@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import Nav from './components/Nav';
 import StartScreen from './components/StartScreen';
 import Question from './components/Question';
 import Score from './components/Score';
 import './App.css'
+
+
+function getInitialTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved === "light" || saved === "dark") return saved;
+
+  const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
+  return prefersDark ? "dark" : "light";
+}
+
 
 function App() {
   const [quizSettings, setQuizSettings] = useState(null);
@@ -11,6 +22,21 @@ function App() {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [answerHistory, setAnswerHistory] = useState([]);
+  const [theme, setTheme] = useState(getInitialTheme);
+
+  // Apply theme to <html> and persist
+  useEffect(() => {
+    const root = document.documentElement;
+
+    root.classList.remove("force-light", "force-dark");
+    root.classList.add(theme === "dark" ? "force-dark" : "force-light");
+
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
+  };
 
   // Fetch questions once quizSettings is set
   useEffect(() => {
@@ -57,6 +83,7 @@ function App() {
 
   return (
     <div className="App">
+      <Nav theme={theme} onToggleTheme={toggleTheme} />
       <h1 className="header">Brain Bash</h1>
 
       {!quizSettings ? (
