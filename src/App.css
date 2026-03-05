@@ -28,11 +28,12 @@ body {
 
 .nav button{
   background-color: transparent;
-  
+  border: none;
+  font-size: 22px;
 }
 
 .header {
-  background-color: light-dark(rgb(24, 179, 231), rgba(255, 138, 95, 1));
+  background-color: light-dark(rgb(24, 179, 231), #F25912);
   color: light-dark(white, #e1e1ff);
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, 2px 2px 0 black,
   2px 2px 0 black;
