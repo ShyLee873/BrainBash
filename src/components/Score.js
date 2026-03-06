@@ -22,13 +22,13 @@ function Score({ score, total, answerHistory }) {
   }
 
   // Play score screen sound once
-  useEffect((percentage) => {
+  useEffect(() => {
     if (percentage <= 60) {
       failSound.play();
     } else {
       victorySound.play();
     }
-  }, []);
+  }, [percentage]);
 
   return (
     <div className="score-card">
