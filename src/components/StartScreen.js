@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-function StartScreen({ onStart }) {
+export default function StartScreen({ onStart }) {
   const [category, setCategory] = useState('');
   const [difficulty, setDifficulty] = useState('easy');
   const [amount, setAmount] = useState(5);
   const [categories, setCategories] = useState([]);
+  const [mode, setMode] = useState("classic") 
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
@@ -14,7 +15,7 @@ function StartScreen({ onStart }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onStart({ category, difficulty, amount });
+    onStart({ category, difficulty, amount, mode });
   };
 
   return (
@@ -53,10 +54,35 @@ function StartScreen({ onStart }) {
           />
         </label>
 
+        <label>
+          Game Mode:
+          <label>
+            <input
+              type="radio" 
+              value="classic"
+              name="mode"
+              className="mode" 
+              checked={mode === "classic"}
+              onChange={(e) => setMode(e.target.value)} 
+            />
+            Classic
+          </label>
+
+          <label>
+            <input 
+              type="radio" 
+              value="lightning"
+              name="mode"
+              className="mode" 
+              checked={mode === "lightning"}
+              onChange={(e) => setMode(e.target.value)} 
+            />
+            Lightning
+          </label>
+        </label>
+
         <button className="start-button" type="submit">Start Quiz</button>
       </form>
     </div>
   );
 }
-
-export default StartScreen;

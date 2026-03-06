@@ -23,7 +23,10 @@ export default function App() {
   const [showScore, setShowScore] = useState(false);
   const [answerHistory, setAnswerHistory] = useState([]);
   const [theme, setTheme] = useState(getInitialTheme);
+  const [timeLeft, setTimeLeft] = useState(5);
+  const [timeUp, setTimeUp] = useState(false);
   const [retryTick, setRetryTick] = useState(0);
+  const isLightingMode = quizSettings?.mode === "lightning";
     // StrictMode guard to prevent double fetch for same request in dev
   const lastRequestKeyRef = useRef(null);
   const retryFetch = useCallback (() => {
@@ -43,6 +46,48 @@ export default function App() {
   const toggleTheme = () => {
     setTheme((t) => (t === "dark" ? "light" : "dark"));
   };
+
+  // Timer effect
+  useEffect(() => {
+    if (!quizSettings || showScore) return;
+    if (!isLightingMode) return;
+    if (quizSettings.length === 0) return;
+    if (timeUp) return;
+
+    if (timeLeft <= 0) {
+      setTimeUp(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [quizSettings, questions, showScore, timeLeft, timeUp]);
+
+  // Reset timer when question changes
+  useEffect(() => {
+    if (isLightingMode) {
+      setTimeLeft(10);
+      setTimeUp(false);
+    }
+  }, [currentIndex, quizSettings]);
+
+  // Tiny pause when time runs out
+  useEffect(() => {
+    if (!timeUp) return;
+    if (!isLightingMode) return;
+
+    const currentQuestion = questions[currentIndex];
+    if (!currentQuestion) return;
+
+    const timeoutId = setTimeout(() => {
+      handleAnswer(false, currentQuestion, null);
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [timeUp, quizSettings, questions, currentIndex]);
 
   // Fetch questions once quizSettings is set
   useEffect(() => {
@@ -159,6 +204,8 @@ export default function App() {
           handleAnswer={handleAnswer}
           currentIndex={currentIndex}
           totalQuestions={questions.length}
+          mode={quizSettings?.mode}
+          timeLeft={timeLeft}
         />
       ) : (
         <p>Loading question...</p>

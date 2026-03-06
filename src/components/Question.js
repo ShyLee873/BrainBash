@@ -4,7 +4,7 @@ import './Question.css';
 const correctSound = new Audio('/sounds/correct.wav');
 const incorrectSound = new Audio('/sounds/incorrect.wav');
 
-export default function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
+export default function Question({ question, handleAnswer, currentIndex, totalQuestions, mode, timeLeft }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [, setIsCorrect] = useState(null);
@@ -36,6 +36,9 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
   };
 
   const handleSelect = (answer) => {
+    if (selectedAnswer) return;
+    if (mode === "lightning" && timeLeft <= 0) return;
+
     setSelectedAnswer(answer);
     const correct = answer === question.correct_answer;
     setIsCorrect(correct);
@@ -52,6 +55,9 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
 
   return (
     <div className="question-card">
+      {mode === "lightning" && (
+        <p className="timer">⏱</p>
+      )}
       <h2 className="question-text">{decodeHtml(question.question)}</h2>
       <div className="answer-buttons">
         {shuffledAnswers.map((answer, index) => {
