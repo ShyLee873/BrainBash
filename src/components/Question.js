@@ -4,10 +4,11 @@ import './Question.css';
 const correctSound = new Audio('/sounds/correct.wav');
 const incorrectSound = new Audio('/sounds/incorrect.wav');
 
-function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
+export default function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [, setIsCorrect] = useState(null);
+  const isLastQuestion = currentIndex === totalQuestions - 1;
 
   useEffect(() => {
     if (!question) return null;
@@ -85,11 +86,11 @@ function Question({ question, handleAnswer, currentIndex, totalQuestions }) {
       {selectedAnswer && (
         <div className="feedback">
           {/* {isCorrect ? '✅ Correct!' : '❌ Oops!'} */}
-          <button className="next-button" onClick={handleNext}>Next Question</button>
+          <button className="next-button" onClick={handleNext}>
+            {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
+          </button>
         </div>
       )}
     </div>
   );
 }
-
-export default Question;
