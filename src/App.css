@@ -120,7 +120,7 @@ body {
 }
 
 .start-options {
-  margin: 50px;
+  margin: 15px 50px 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
