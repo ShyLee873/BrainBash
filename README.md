@@ -1,10 +1,11 @@
-# Brain Bash
+## 🧠 BrainBash
 
-Brain Bash is a colorful, interactive quiz game built with React that lets users test their trivia skills using the [Open Trivia API](https://opentdb.com/). With progress tracking, visual feedback, score summaries, and a question-by-question recap, with the intention of being both fun and educational. Still a work in progress
+BrainBash is a lightweight React quiz app that fetches trivia questions from the Open Trivia Database and challenges players to test their knowledge across categories and difficulty levels.
 
-![image](https://github.com/user-attachments/assets/bb270255-cef2-48c8-abfd-f56fd098e2d4)
-![image](https://github.com/user-attachments/assets/e9f3c89d-10ef-4e55-a4c1-616dc98c009b)
+The project was built as a way to experiment with React state management, API integration, and UI features while continuously improving the application through small iterative updates.
 
+🚀 Live Demo:
+https://brainbash.io
 
 ---
 
