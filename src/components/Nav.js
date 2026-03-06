@@ -4,7 +4,7 @@ export default function Nav({ theme, onToggleTheme, showQuestionActions }) {
       <div className="restartBtnContainer">
         {showQuestionActions && (
         <button type="button" className="backToStart" onClick={() => window.location.reload()}>
-          Back to Start
+            ⟲ <span>Back to Start</span>
         </button>
         )}
       </div>

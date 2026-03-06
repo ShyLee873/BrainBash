@@ -97,8 +97,8 @@ body {
   width: 500px;
   margin: auto;
   padding: 15px;
-  color: white;
-  background-color: #412B6B;
+  color: light-dark(white, #e1e1ff);
+  background-color: light-dark(navy, #412B6B);
 }
 
 .start-options {
@@ -130,7 +130,7 @@ body {
   font-weight: 700;
   line-height: 24px;
   opacity: 1;
-  outline: 2px solid white;
+  outline: 2px solid light-dark(white, #e1e1ff);
   padding: 8px 18px;
   width: fit-content;
   word-break: break-word;
@@ -194,6 +194,10 @@ body {
 
   .responsive-recap {
     max-height: 270px;
+  }
+
+  .backToStart span {
+    display: none;
   }
 }
 
