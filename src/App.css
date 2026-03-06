@@ -1,5 +1,21 @@
 :root {
   color-scheme: light dark;
+
+  --app-bg: light-dark(#f25912, #211832);
+  --panel-bg: light-dark(navy, #412b6b);
+  --header-bg: light-dark(rgb(24, 179, 231), #f25912);
+  --text-main: light-dark(white, #e1e1ff);
+  --border-main: light-dark(white, #e1e1ff);
+  --accent-pink: #f601e6;
+
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --border-thick: 5px solid var(--border-main);
+  --border-med: 4px solid var(--border-main);
+
+  --card-width: min(500px, 95vw);
+  --question-width: min(500px, 95vw);
+  --answer-width: min(500px, 95vw);
 }
 
 html.force-light {
@@ -11,7 +27,8 @@ html.force-dark {
 }
 
 body {
-   background-color: light-dark(#F25912, #211832);
+  background-color: var(--app-bg);
+  margin: 0;
 }
 
 .App {
@@ -21,43 +38,40 @@ body {
 
 .nav {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  max-height: min-content;
+  align-items: flex-start;
+  padding-inline: 15px;
 }
 
-.lightToggleContainer {
-  flex-direction: column;
-}
-
+.lightToggleContainer,
 .restartBtnContainer {
+  display: flex;
   flex-direction: column;
-  margin-left: 15px;
-  max-height: 25px;
 }
 
 .lightToggle {
-  background-color: transparent;
+  background: transparent;
   border: none;
   font-size: 24px;
+  cursor: pointer;
 }
 
-
-
 .header {
-  background-color: light-dark(rgb(24, 179, 231), #F25912);
-  color: light-dark(white, #e1e1ff);
-  text-shadow: -1px -1px 0 black, 1px -1px 0 black, 2px 2px 0 black,
-  2px 2px 0 black;
+  background-color: var(--header-bg);
+  color: var(--text-main);
+  text-shadow:
+    -1px -1px 0 black,
+     1px -1px 0 black,
+     2px  2px 0 black;
   max-width: 175px;
-  margin: auto;
-  margin-bottom: 70px;
+  margin: 0 auto 70px;
   border-radius: 50%;
-  border: 5px solid light-dark(white, #e1e1ff);
+  border: 5px solid var(--border-main);
   padding: 15px;
 }
 
-.question-card, .start-screen {
+.question-card,
+.start-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,12 +79,13 @@ body {
 }
 
 .question-text {
-  background-color: light-dark(navy, #412B6B);
-  color: white;
-  border: 5px solid white;
+  background-color: var(--panel-bg);
+  color: var(--text-main);
+  border: var(--border-thick);
   padding: 45px;
-  width: 500px;
-  border-radius: 10px;
+  width: var(--question-width);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
 }
 
 .answer-buttons {
@@ -82,27 +97,29 @@ body {
 .answerButton {
   padding: 15px;
   margin-top: 20px;
-  background-color: light-dark(navy, #412B6B);
-  border: 4px solid light-dark(white, #e1e1ff);
-  border-radius: 10px;
-  width: 500px;
-  color: light-dark(white, #e1e1ff);
+  background-color: var(--panel-bg);
+  border: var(--border-med);
+  border-radius: var(--radius-sm);
+  width: var(--answer-width);
+  color: var(--text-main);
   font-size: 20px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-.start-screen, .score-card {
-  border: 5px solid white;
-  border-radius: 10px;
-  width: 500px;
+.start-screen,
+.score-card {
+  border: var(--border-thick);
+  border-radius: var(--radius-sm);
+  width: var(--card-width);
   margin: auto;
   padding: 15px;
-  color: white;
-  background-color: #412B6B;
+  color: var(--text-main);
+  background-color: var(--panel-bg);
+  box-sizing: border-box;
 }
 
 .start-options {
-  margin-top: 50px;
   margin: 50px;
   display: flex;
   flex-direction: column;
@@ -114,51 +131,63 @@ body {
   font-weight: bold;
 }
 
-.start-options select, input {
+.start-options select,
+.start-options input {
   margin-left: 10px;
 }
 
-.start-button, .replay, .next-button, .recap, .retryBtn, .backToStart {
+.start-button,
+.replay,
+.next-button,
+.recap,
+.retryBtn,
+.backToStart {
   margin: auto;
   border: 2px solid white;
-  border-radius: 999px;
-  box-shadow: #5E5DF0 0 10px 20px -10px;
+  border-radius: var(--radius-pill);
+  box-shadow: #5e5df0 0 10px 20px -10px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #fff;
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
-  opacity: 1;
-  outline: 2px solid white;
+  outline: 2px solid var(--border-main);
   padding: 8px 18px;
   width: fit-content;
   word-break: break-word;
 }
-.start-button, .replay, .next-button, .recap, .retryBtn {
+
+.start-button,
+.replay,
+.next-button,
+.recap,
+.retryBtn {
   margin-top: 50px;
 }
 
-.retryBtn, .backToStart {
-  background-color: light-dark(navy, #412B6B);
-}
-
-.start-button, .replay, .recap {
-  background: #f601e6;
-}
-
-.replay, .recap {
-  margin: 10px;
-}
-
+.retryBtn,
+.backToStart,
 .next-button {
-  background-color: light-dark(navy, #412B6B);
+  background-color: var(--panel-bg);
+}
+
+.start-button,
+.replay,
+.recap {
+  background: var(--accent-pink);
+}
+
+.replay,
+.recap {
+  margin: 10px;
 }
 
 .correct {
   background-color: green;
-  box-shadow: 0 0 7px 3px limegreen,
-  0 0 10px 7px limegreen;
+  box-shadow:
+    0 0 7px 3px limegreen,
+    0 0 10px 7px limegreen;
 }
 
 .incorrect {
@@ -167,11 +196,7 @@ body {
   text-decoration-thickness: 2px;
 }
 
-@media only screen 
-  and (min-device-width: 768px) 
-  and (max-device-width: 1024px) 
-  and (-webkit-min-device-pixel-ratio: 1) {
-
+@media (max-width: 1024px) {
   .header {
     margin-bottom: 20px;
   }
@@ -195,24 +220,26 @@ body {
   .responsive-recap {
     max-height: 270px;
   }
+
+  .backToStart span {
+    display: none;
+  }
 }
 
-@media only screen
-  and (min-width: 425px)
-  and (max-width: 834px) {
-  
+@media (max-width: 834px) {
   .App {
     margin-top: 25px;
   }
 
-  .start-screen, .score-card {
-    width: 400px;
-    padding: 0px;
+  .start-screen,
+  .score-card {
+    width: min(400px, 95vw);
+    padding: 0;
   }
 
   .question-text {
     padding: 20px;
-    width: 362px;
+    width: min(362px, 95vw);
   }
 
   .answer-buttons {
@@ -222,7 +249,7 @@ body {
   .answerButton {
     padding: 11px;
     margin-top: 15px;
-    width: 414px;
+    width: min(414px, 95vw);
   }
 
   .progress-bar {
@@ -243,19 +270,20 @@ body {
   }
 }
 
-@media only screen and (min-width: 380px) and (max-width: 424px) {
+@media (max-width: 424px) {
   .header {
     margin-bottom: 15px;
   }
 
-  .start-screen, .score-card {
-    width: 375px;
-    padding: 0px;
+  .start-screen,
+  .score-card {
+    width: min(375px, 95vw);
+    padding: 0;
   }
 
   .question-text {
     padding: 10px;
-    width: 350px;
+    width: min(350px, 95vw);
   }
 
   .answer-buttons {
@@ -265,7 +293,7 @@ body {
   .answerButton {
     padding: 10px;
     margin-top: 10px;
-    width: 375px;
+    width: min(375px, 95vw);
   }
 
   .next-button {
