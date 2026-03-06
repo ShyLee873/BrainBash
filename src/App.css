@@ -22,15 +22,27 @@ body {
 .nav {
   display: flex;
   flex-direction: row;
-  justify-content: end;
-  margin: 15px;
+  justify-content: space-between;
+  max-height: min-content;
 }
 
-.nav, .lightToggle{
+.lightToggleContainer {
+  flex-direction: column;
+}
+
+.restartBtnContainer {
+  flex-direction: column;
+  margin-left: 15px;
+  max-height: 25px;
+}
+
+.lightToggle {
   background-color: transparent;
   border: none;
   font-size: 24px;
 }
+
+
 
 .header {
   background-color: light-dark(rgb(24, 179, 231), #F25912);
@@ -106,9 +118,8 @@ body {
   margin-left: 10px;
 }
 
-.start-button, .replay, .next-button, .recap {
+.start-button, .replay, .next-button, .recap, .retryBtn, .backToStart {
   margin: auto;
-  margin-top: 50px;
   border: 2px solid white;
   border-radius: 999px;
   box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -123,6 +134,13 @@ body {
   padding: 8px 18px;
   width: fit-content;
   word-break: break-word;
+}
+.start-button, .replay, .next-button, .recap, .retryBtn {
+  margin-top: 50px;
+}
+
+.retryBtn, .backToStart {
+  background-color: light-dark(navy, #412B6B);
 }
 
 .start-button, .replay, .recap {
