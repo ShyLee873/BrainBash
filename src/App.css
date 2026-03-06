@@ -220,10 +220,6 @@ body {
   .responsive-recap {
     max-height: 270px;
   }
-
-  .backToStart span {
-    display: none;
-  }
 }
 
 @media (max-width: 834px) {
@@ -267,6 +263,14 @@ body {
 
   .responsive-recap {
     max-height: 275px;
+  }
+
+  .backToStart span {
+    display: none;
+  }
+
+  .backToStart {
+    font-size: 20px;
   }
 }
 
