@@ -94,11 +94,6 @@ export default function App() {
 
       return () => controller.abort();
     }, [quizSettings, retryTick]);
-  //   fetch(apiUrl)
-  //     .then((res) => res.json())
-  //     .then((data) => setQuestions(Array.isArray(data.results) ? data.results : []))
-  //     .catch(() => setQuestions([]));
-  // }, [quizSettings]);
 
   const handleAnswer = (isCorrect, question, selectedAnswer) => {
     if (isCorrect) setScore((prev) => prev + 1);
@@ -131,9 +126,11 @@ export default function App() {
     setAnswerHistory([]);
   };
 
+  const isQuestionScreen = !!quizSettings && !showScore;
+
   return (
     <div className="App">
-      <Nav theme={theme} onToggleTheme={toggleTheme} />
+      <Nav theme={theme} onToggleTheme={toggleTheme} showQuestionActions={isQuestionScreen} />
       <h1 className="header">Brain Bash</h1>
 
       {!quizSettings ? (
@@ -142,11 +139,11 @@ export default function App() {
         <p>Loading questions...</p>
       ) : error ? (
         <div>
-          <button type="button" onClick={retryFetch}>
+          <button type="button" className="retryBtn" onClick={retryFetch}>
             Retry
           </button>
           <p>{error}</p>
-          <button type="button" onClick={() => setQuizSettings(null)}>
+          <button type="button" className="backToStart" onClick={() => setQuizSettings(null)}>
             Back to Start
           </button>
         </div>
