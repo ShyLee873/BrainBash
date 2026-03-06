@@ -20,6 +20,7 @@ https://brainbash.io
 - Restart quiz anytime with “Play Again”
 - Sound effects for right/wrong answers (mute toggle coming soon!)
 - Fully responsive and mobile-friendly design
+- Light / Dark mode toggle
 
 ---
 
