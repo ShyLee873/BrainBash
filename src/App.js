@@ -5,6 +5,8 @@ import Question from './components/Question';
 import Score from './components/Score';
 import './App.css'
 
+const incorrectSound = new Audio('/sounds/incorrect.wav');
+
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
   if (saved === "light" || saved === "dark") return saved;
@@ -23,7 +25,7 @@ export default function App() {
   const [showScore, setShowScore] = useState(false);
   const [answerHistory, setAnswerHistory] = useState([]);
   const [theme, setTheme] = useState(getInitialTheme);
-  const [timeLeft, setTimeLeft] = useState(5);
+  const [timeLeft, setTimeLeft] = useState(10);
   const [timeUp, setTimeUp] = useState(false);
   const [retryTick, setRetryTick] = useState(0);
   const isLightingMode = quizSettings?.mode === "lightning";
@@ -56,12 +58,13 @@ export default function App() {
 
     if (timeLeft <= 0) {
       setTimeUp(true);
+      incorrectSound.play();
       return;
     }
 
     const timer = setTimeout(() => {
       setTimeLeft((prev) => prev - 1);
-    }, 500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [quizSettings, questions, showScore, timeLeft, timeUp]);
@@ -84,7 +87,7 @@ export default function App() {
 
     const timeoutId = setTimeout(() => {
       handleAnswer(false, currentQuestion, null);
-    }, 300);
+    }, 1000);
 
     return () => clearTimeout(timeoutId);
   }, [timeUp, quizSettings, questions, currentIndex]);

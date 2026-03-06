@@ -64,7 +64,7 @@ body {
      1px -1px 0 black,
      2px  2px 0 black;
   max-width: 175px;
-  margin: 0 auto 70px;
+  margin: 0 auto 20px;
   border-radius: 50%;
   border: 5px solid var(--border-main);
   padding: 15px;
@@ -89,7 +89,7 @@ body {
 }
 
 .answer-buttons {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -105,6 +105,11 @@ body {
   font-size: 20px;
   cursor: pointer;
   box-sizing: border-box;
+}
+
+.answerButton:disabled {
+  opacity: 1;
+  color: inherit;
 }
 
 .start-screen,
@@ -181,6 +186,25 @@ body {
 .replay,
 .recap {
   margin: 10px;
+}
+
+.timer {
+  color: green;
+  font-weight: bolder;
+  font-size: 18px;
+  position: relative;
+  bottom: -85px;
+  left: -215px;
+}
+
+.timingOut {
+ color: red;
+ animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
 }
 
 .correct {

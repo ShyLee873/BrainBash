@@ -8,10 +8,11 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [, setIsCorrect] = useState(null);
+  const [timedOut, setTimedOut] = useState(false);
   const isLastQuestion = currentIndex === totalQuestions - 1;
 
   useEffect(() => {
-    if (!question) return null;
+    if (!question) return;
 
     const answers = [
       ...question.incorrect_answers,
@@ -27,7 +28,14 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
     setShuffledAnswers(answers);
     setSelectedAnswer(null);
     setIsCorrect(null);
+    setTimedOut(false);
   }, [question]);
+
+  useEffect(() =>{
+    if (mode === "lightning" && timeLeft <= 0 && !selectedAnswer) {
+      setTimedOut(true);
+    }
+  }, [mode, timeLeft, selectedAnswer]);
 
   const decodeHtml = (html) => {
     const txt = document.createElement('textarea');
@@ -53,10 +61,12 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
     );
   };
 
+  const timerClass = mode === "lightning" && timeLeft <= 5 ? "timer timingOut" : "timer"
+
   return (
     <div className="question-card">
       {mode === "lightning" && (
-        <p className="timer">⏱</p>
+        <p className={timerClass}>⏱ {timeLeft}</p>
       )}
       <h2 className="question-text">{decodeHtml(question.question)}</h2>
       <div className="answer-buttons">
@@ -65,6 +75,9 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
           if (selectedAnswer) {
             if (answer === question.correct_answer) className += ' correct';
             else if (answer === selectedAnswer) className += ' incorrect';
+          } else if(timedOut) {
+            if (answer === question.correct_answer) className += ' correct';
+            else className += ' incorrect';
           }
 
           return (
@@ -72,7 +85,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
               key={index}
               className={className}
               onClick={() => handleSelect(answer)}
-              disabled={!!selectedAnswer}
+              disabled={!!selectedAnswer || timedOut}
             >
               {decodeHtml(answer)}
             </button>
