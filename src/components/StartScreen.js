@@ -73,7 +73,7 @@ export default function StartScreen({ onStart }) {
               type="radio" 
               value="lightning"
               name="mode"
-              className="mode" 
+              className="mode tooltip" 
               checked={mode === "lightning"}
               onChange={(e) => setMode(e.target.value)} 
             />

@@ -156,6 +156,33 @@ body {
   font-weight: bold;
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip:after {
+  content: "Battle the clock!!";
+  font-weight: 700;
+  letter-spacing: 1px;
+  width: 90px;
+  position: absolute;
+  top: -40px;
+  right: 0;
+  left: 10px;
+  display: none;
+  text-align: center;
+  background-color: #f25912;
+  color: var(--text-main);
+  border-radius: 4px;
+  border: 2px solid #e1e1ff;
+  padding: 2px;
+}
+
+.tooltip:hover:after {
+  display: block;
+}
+
 .start-options select,
 .start-options input {
   margin-left: 10px;
