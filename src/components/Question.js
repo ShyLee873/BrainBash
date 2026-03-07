@@ -4,7 +4,7 @@ import './Question.css';
 const correctSound = new Audio('/sounds/correct.wav');
 const incorrectSound = new Audio('/sounds/incorrect.wav');
 
-export default function Question({ question, handleAnswer, currentIndex, totalQuestions, mode, timeLeft }) {
+export default function Question({ question, handleAnswer, currentIndex, totalQuestions, mode, timeLeft, setQuestionAnswered }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [, setIsCorrect] = useState(null);
@@ -48,34 +48,56 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
     if (mode === "lightning" && timeLeft <= 0) return;
 
     setSelectedAnswer(answer);
+    setQuestionAnswered(true);
+
     const correct = answer === question.correct_answer;
     setIsCorrect(correct);
     correct ? correctSound.play() : incorrectSound.play();
+
+    if (mode === "lightning") {
+      setTimeout(() => {
+        handleNext(answer);
+      }, 800);
+    }
   };
 
-  const handleNext = () => {
+  const handleNext = (answerToSubmit = selectedAnswer) => {
     handleAnswer(
-      selectedAnswer === question.correct_answer,
+      answerToSubmit === question.correct_answer,
       question,
-      selectedAnswer
+      answerToSubmit
     );
   };
 
-  const timerClass = mode === "lightning" && timeLeft <= 5 ? "timer timingOut" : "timer"
+  const maxTime = 7;
+  const timerPercent = Math.max(0, Math.min(100, (timeLeft / maxTime) * 100));
+  const timerClass = mode === "lightning" && timeLeft <= 3 ? "timer timingOut" : "timer";
 
   return (
     <div className="question-card">
-      {mode === "lightning" && (
-        <p className={timerClass}>⏱ {timeLeft}</p>
-      )}
-      <h2 className="question-text">{decodeHtml(question.question)}</h2>
+      <div className="question-panel">
+        {mode === "lightning" && (
+          <div className="timer-wrapper">
+            <p className={timerClass}>⏱ {timeLeft}</p>
+            <div className="timer-bar">
+              <div
+                className={`timer-fill ${timeLeft <= 3 ? 'timer-fill-warning' : ''}`}
+                style={{ width: `${timerPercent}%` }}
+              ></div>
+            </div>
+          </div>
+        )}
+
+        <h2 className="question-text">{decodeHtml(question.question)}</h2>
+      </div>
+
       <div className="answer-buttons">
         {shuffledAnswers.map((answer, index) => {
           let className = 'answerButton';
           if (selectedAnswer) {
             if (answer === question.correct_answer) className += ' correct';
             else if (answer === selectedAnswer) className += ' incorrect';
-          } else if(timedOut) {
+          } else if (timedOut) {
             if (answer === question.correct_answer) className += ' correct';
             else className += ' incorrect';
           }
@@ -101,10 +123,11 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
           }}
         ></div>
       </div>
+
       <p className="question-count">{currentIndex + 1} of {totalQuestions}</p>
-      {selectedAnswer && (
+    
+      {mode === 'classic' && selectedAnswer && (
         <div className="feedback">
-          {/* {isCorrect ? '✅ Correct!' : '❌ Oops!'} */}
           <button className="next-button" onClick={handleNext}>
             {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
           </button>

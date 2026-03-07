@@ -25,10 +25,12 @@ export default function App() {
   const [showScore, setShowScore] = useState(false);
   const [answerHistory, setAnswerHistory] = useState([]);
   const [theme, setTheme] = useState(getInitialTheme);
-  const [timeLeft, setTimeLeft] = useState(10);
+  const LIGHTNING_TIME = 7;
+  const [timeLeft, setTimeLeft] = useState(LIGHTNING_TIME);
   const [timeUp, setTimeUp] = useState(false);
   const [retryTick, setRetryTick] = useState(0);
-  const isLightingMode = quizSettings?.mode === "lightning";
+  const [questionAnswered, setQuestionAnswered] = useState(false);
+  const isLightningMode = quizSettings?.mode === "lightning";
     // StrictMode guard to prevent double fetch for same request in dev
   const lastRequestKeyRef = useRef(null);
   const retryFetch = useCallback (() => {
@@ -52,9 +54,10 @@ export default function App() {
   // Timer effect
   useEffect(() => {
     if (!quizSettings || showScore) return;
-    if (!isLightingMode) return;
-    if (quizSettings.length === 0) return;
+    if (!isLightningMode) return;
+    if (questions.length === 0) return;
     if (timeUp) return;
+    if (questionAnswered) return;
 
     if (timeLeft <= 0) {
       setTimeUp(true);
@@ -67,20 +70,21 @@ export default function App() {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [quizSettings, questions, showScore, timeLeft, timeUp]);
+  }, [quizSettings, questions, showScore, timeLeft, timeUp, isLightningMode, questionAnswered]);
 
   // Reset timer when question changes
   useEffect(() => {
-    if (isLightingMode) {
-      setTimeLeft(10);
+    if (isLightningMode) {
+      setTimeLeft(LIGHTNING_TIME);
       setTimeUp(false);
+      setQuestionAnswered(false);
     }
-  }, [currentIndex, quizSettings]);
+  }, [currentIndex, quizSettings, isLightningMode]);
 
   // Tiny pause when time runs out
   useEffect(() => {
     if (!timeUp) return;
-    if (!isLightingMode) return;
+    if (!isLightningMode) return;
 
     const currentQuestion = questions[currentIndex];
     if (!currentQuestion) return;
@@ -172,6 +176,7 @@ export default function App() {
     setCurrentIndex(0);
     setShowScore(false);
     setAnswerHistory([]);
+    setQuestionAnswered(false);
   };
 
   const isQuestionScreen = !!quizSettings && !showScore;
@@ -209,6 +214,7 @@ export default function App() {
           totalQuestions={questions.length}
           mode={quizSettings?.mode}
           timeLeft={timeLeft}
+          setQuestionAnswered={setQuestionAnswered}
         />
       ) : (
         <p>Loading question...</p>
