@@ -5,6 +5,8 @@ import Question from './components/Question';
 import Score from './components/Score';
 import './App.css'
 
+const incorrectSound = new Audio('/sounds/incorrect.wav');
+
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
   if (saved === "light" || saved === "dark") return saved;
@@ -23,7 +25,12 @@ export default function App() {
   const [showScore, setShowScore] = useState(false);
   const [answerHistory, setAnswerHistory] = useState([]);
   const [theme, setTheme] = useState(getInitialTheme);
+  const LIGHTNING_TIME = 7;
+  const [timeLeft, setTimeLeft] = useState(LIGHTNING_TIME);
+  const [timeUp, setTimeUp] = useState(false);
   const [retryTick, setRetryTick] = useState(0);
+  const [questionAnswered, setQuestionAnswered] = useState(false);
+  const isLightningMode = quizSettings?.mode === "lightning";
     // StrictMode guard to prevent double fetch for same request in dev
   const lastRequestKeyRef = useRef(null);
   const retryFetch = useCallback (() => {
@@ -43,6 +50,51 @@ export default function App() {
   const toggleTheme = () => {
     setTheme((t) => (t === "dark" ? "light" : "dark"));
   };
+
+  // Timer effect
+  useEffect(() => {
+    if (!quizSettings || showScore) return;
+    if (!isLightningMode) return;
+    if (questions.length === 0) return;
+    if (timeUp) return;
+    if (questionAnswered) return;
+
+    if (timeLeft <= 0) {
+      setTimeUp(true);
+      incorrectSound.play();
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [quizSettings, questions, showScore, timeLeft, timeUp, isLightningMode, questionAnswered]);
+
+  // Reset timer when question changes
+  useEffect(() => {
+    if (isLightningMode) {
+      setTimeLeft(LIGHTNING_TIME);
+      setTimeUp(false);
+      setQuestionAnswered(false);
+    }
+  }, [currentIndex, quizSettings, isLightningMode]);
+
+  // Tiny pause when time runs out
+  useEffect(() => {
+    if (!timeUp) return;
+    if (!isLightningMode) return;
+
+    const currentQuestion = questions[currentIndex];
+    if (!currentQuestion) return;
+
+    const timeoutId = setTimeout(() => {
+      handleAnswer(false, currentQuestion, null);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [timeUp, quizSettings, questions, currentIndex]);
 
   // Fetch questions once quizSettings is set
   useEffect(() => {
@@ -124,6 +176,7 @@ export default function App() {
     setCurrentIndex(0);
     setShowScore(false);
     setAnswerHistory([]);
+    setQuestionAnswered(false);
   };
 
   const isQuestionScreen = !!quizSettings && !showScore;
@@ -159,6 +212,9 @@ export default function App() {
           handleAnswer={handleAnswer}
           currentIndex={currentIndex}
           totalQuestions={questions.length}
+          mode={quizSettings?.mode}
+          timeLeft={timeLeft}
+          setQuestionAnswered={setQuestionAnswered}
         />
       ) : (
         <p>Loading question...</p>

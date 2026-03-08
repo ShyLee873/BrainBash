@@ -4,7 +4,7 @@ import './Score.css';
 const failSound = new Audio('/sounds/fail.mp3');
 const victorySound = new Audio('/sounds/victory.wav');
 
-function Score({ score, total, answerHistory }) {
+export default function Score({ score, total, answerHistory }) {
   const [showRecap, setShowRecap] = useState(false);
   const percentage = Math.round((score / total) * 100);
   let feedback;
@@ -77,5 +77,3 @@ function Score({ score, total, answerHistory }) {
     </div>
   );
 }
-
-export default Score;
