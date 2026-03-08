@@ -49,7 +49,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
 
     setSelectedAnswer(answer);
     setQuestionAnswered(true);
-
+    
     const correct = answer === question.correct_answer;
     setIsCorrect(correct);
     correct ? correctSound.play() : incorrectSound.play();
@@ -128,7 +128,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
     
       {mode === 'classic' && selectedAnswer && (
         <div className="feedback">
-          <button className="next-button" onClick={handleNext}>
+          <button className="next-button" onClick={() => handleNext()}>
             {isLastQuestion ? 'Finish Quiz' : 'Next Question'}
           </button>
         </div>
