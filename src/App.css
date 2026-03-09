@@ -76,7 +76,6 @@ body {
   border: var(--border-thick);
   border-radius: var(--radius-sm);
   width: var(--question-width);
-  padding: 20px;
   box-sizing: border-box;
 }
 
@@ -96,8 +95,11 @@ body {
   border-radius: var(--radius-sm);
   width: var(--question-width);
   padding: 20px;
-  padding-top: 56px;
   box-sizing: border-box;
+}
+
+.lightning {
+  padding-top: 56px;
 }
 
 .question-text {

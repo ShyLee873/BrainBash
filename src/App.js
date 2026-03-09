@@ -6,6 +6,7 @@ import Score from './components/Score';
 import './App.css'
 
 const incorrectSound = new Audio('/sounds/incorrect.wav');
+const countdownSound = new Audio('/sounds/countdown-click.wav');
 
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
@@ -63,6 +64,10 @@ export default function App() {
       setTimeUp(true);
       incorrectSound.play();
       return;
+    }
+
+    if (timeLeft === 3) {
+      countdownSound.play();
     }
 
     const timer = setTimeout(() => {
