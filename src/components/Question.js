@@ -75,7 +75,8 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
 
   return (
     <div className="question-card">
-      <div className="question-panel">
+      <div className={"question-panel " + (mode ==="classic" ? "" : "lightning")}> 
+        
         {mode === "lightning" && (
           <div className="timer-wrapper">
             <p className={timerClass}>⏱ {timeLeft}</p>
