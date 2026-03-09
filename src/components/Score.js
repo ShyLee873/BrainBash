@@ -4,7 +4,7 @@ import './Score.css';
 const failSound = new Audio('/sounds/fail.mp3');
 const victorySound = new Audio('/sounds/victory.wav');
 
-export default function Score({ score, total, answerHistory }) {
+export default function Score({ score, total, answerHistory, quizSettings, startQuiz }) {
   const [showRecap, setShowRecap] = useState(false);
   const percentage = Math.round((score / total) * 100);
   let feedback;
@@ -30,6 +30,11 @@ export default function Score({ score, total, answerHistory }) {
     }
   }, [percentage]);
 
+  const replay = (settings = quizSettings) => {
+    console.log(settings)
+    startQuiz({ ...settings })
+  };
+
   return (
     <div className="score-card">
       <h3>Quiz Complete!</h3>
@@ -44,6 +49,9 @@ export default function Score({ score, total, answerHistory }) {
         </button>
         <button className="replay" onClick={() => window.location.reload()}>
           Play Again
+        </button>
+        <button className="replay" onClick={() => replay()}>
+          Play Same Again
         </button>
       </div>
 
