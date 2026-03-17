@@ -3,6 +3,7 @@ import './Question.css';
 
 const correctSound = new Audio('/sounds/correct.wav');
 const incorrectSound = new Audio('/sounds/incorrect.wav');
+const countdownSound = new Audio ('/sounds/countdown-click.wav');
 
 export default function Question({ question, handleAnswer, currentIndex, totalQuestions, mode, timeLeft, setQuestionAnswered }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
@@ -67,6 +68,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
       question,
       answerToSubmit
     );
+
   };
 
   const maxTime = 7;

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Score.css';
+import ReplayModal from './ReplayModal';
 
 const failSound = new Audio('/sounds/fail.mp3');
 const victorySound = new Audio('/sounds/victory.wav');
 
 export default function Score({ score, total, answerHistory, quizSettings, startQuiz }) {
   const [showRecap, setShowRecap] = useState(false);
+  const [showReplayModal, setShowReplayModal] = useState(false);
   const percentage = Math.round((score / total) * 100);
   let feedback;
   let grade;
@@ -47,10 +49,8 @@ export default function Score({ score, total, answerHistory, quizSettings, start
         <button className="recap" onClick={() => setShowRecap(!showRecap)}>
           {showRecap ? 'Hide Recap' : 'Review Answers'}
         </button>
-        <button className="replay" onClick={() => window.location.reload()}>
-          Play Again
-        </button>
-        <button className="replay" onClick={() => replay()}>
+
+        <button className="replay" onClick={() => setShowReplayModal(true)}>
           Play Same Again
         </button>
       </div>
@@ -82,6 +82,19 @@ export default function Score({ score, total, answerHistory, quizSettings, start
           </table>
         </div>  
       )}
+
+      <ReplayModal
+        isOpen={showReplayModal}
+        onClose={() => setShowReplayModal(false)}
+        onReplaySame={() => {
+          setShowReplayModal(false);
+          replay();
+        }}
+        onNewQuiz={() =>{
+          setShowReplayModal(false);
+          newQuiz();
+        }}
+      />
     </div>
   );
 }
