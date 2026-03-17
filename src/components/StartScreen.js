@@ -26,11 +26,25 @@ export default function StartScreen({ onStart }) {
           Category:
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="">Any</option>
-            {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
+            {[...categories]
+              .sort((a, b) => {
+                const getClean = (name) =>
+                  name.includes(':') ? name.split(':')[1] : name;
+
+                return getClean(a.name).localeCompare(getClean(b.name));
+              })
+              .map((cat) => {
+                const cleanName = cat.name.includes(':')
+                  ? cat.name.split(':')[1]
+                  : cat.name;
+
+                return (
+                  <option key={cat.id} value={cat.id}>
+                    {cleanName}
+                  </option>
+                );
+              }
+            )}
           </select>
         </label>
 
