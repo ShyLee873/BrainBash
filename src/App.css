@@ -12,6 +12,7 @@
   --radius-pill: 999px;
   --border-thick: 5px solid var(--border-main);
   --border-med: 4px solid var(--border-main);
+  --border-sm: 2px solid var(--border-main);
 
   --card-width: min(500px, 95vw);
   --question-width: min(500px, 95vw);
@@ -158,6 +159,11 @@ body {
   font-weight: bold;
 }
 
+.start-options select, input {
+  border: var(--border-sm);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+}
 .tooltip {
   position: relative;
   display: inline-block;
