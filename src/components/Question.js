@@ -46,7 +46,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
     if (selectedAnswer) return;
     if (mode === "lightning" && timeLeft <= 0) return;
 
-    stopAudio('countdown')
+    stopAudio('countdown');
     setSelectedAnswer(answer);
     setQuestionAnswered(true);
     
