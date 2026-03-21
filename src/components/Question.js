@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Question.css';
-
-const correctSound = new Audio('/sounds/correct.wav');
-const incorrectSound = new Audio('/sounds/incorrect.wav');
-const countdownSound = new Audio ('/sounds/countdown-click.wav');
+import useSound from './Sound';
 
 export default function Question({ question, handleAnswer, currentIndex, totalQuestions, mode, timeLeft, setQuestionAnswered }) {
   const [shuffledAnswers, setShuffledAnswers] = useState([]);
@@ -11,6 +8,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
   const [, setIsCorrect] = useState(null);
   const [timedOut, setTimedOut] = useState(false);
   const isLastQuestion = currentIndex === totalQuestions - 1;
+  const { playSound, stopAllSounds, stopAudio } = useSound();
 
   useEffect(() => {
     if (!question) return;
@@ -48,12 +46,13 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
     if (selectedAnswer) return;
     if (mode === "lightning" && timeLeft <= 0) return;
 
+    stopAudio('countdown')
     setSelectedAnswer(answer);
     setQuestionAnswered(true);
     
     const correct = answer === question.correct_answer;
     setIsCorrect(correct);
-    correct ? correctSound.play() : incorrectSound.play();
+    playSound(correct ? 'correct' : 'incorrect');
 
     if (mode === "lightning") {
       setTimeout(() => {
@@ -63,6 +62,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
   };
 
   const handleNext = (answerToSubmit = selectedAnswer) => {
+    stopAudio('countdown');
     handleAnswer(
       answerToSubmit === question.correct_answer,
       question,

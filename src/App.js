@@ -4,9 +4,7 @@ import StartScreen from './components/StartScreen';
 import Question from './components/Question';
 import Score from './components/Score';
 import './App.css'
-
-const incorrectSound = new Audio('/sounds/incorrect.wav');
-const countdownSound = new Audio('/sounds/countdown-click.wav');
+import useSound from './components/Sound';
 
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
@@ -32,6 +30,7 @@ export default function App() {
   const [retryTick, setRetryTick] = useState(0);
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const isLightningMode = quizSettings?.mode === "lightning";
+  const { playSound, stopAudio, stopAllSounds } = useSound();
     // StrictMode guard to prevent double fetch for same request in dev
   const lastRequestKeyRef = useRef(null);
   const retryFetch = useCallback (() => {
@@ -62,12 +61,13 @@ export default function App() {
 
     if (timeLeft <= 0) {
       setTimeUp(true);
-      incorrectSound.play();
+      stopAudio('countdown');
+      playSound('incorrect');
       return;
     }
 
     if (timeLeft === 3) {
-      countdownSound.play();
+      playSound('countdown');
     }
 
     const timer = setTimeout(() => {
