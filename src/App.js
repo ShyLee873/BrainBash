@@ -188,6 +188,20 @@ export default function App() {
     setTimeUp(false);
   };
 
+  const newQuiz = () => {
+    setQuizSettings(null);
+    setQuestions([]);
+    setError(null);
+    setScore(0);
+    setCurrentIndex(0);
+    setShowScore(false);
+    setAnswerHistory([]);
+    setQuestionAnswered(false);
+    setRetryTick(0);
+    setTimeLeft(LIGHTNING_TIME);
+    setTimeUp(false);
+  };
+
   const isQuestionScreen = !!quizSettings && !showScore;
 
   return (
@@ -216,6 +230,7 @@ export default function App() {
           answerHistory={answerHistory}
           quizSettings={quizSettings}
           startQuiz={startQuiz}
+          newQuiz={newQuiz}
         />
       ) : questions[currentIndex] ? (
         <Question

@@ -1,0 +1,58 @@
+.replay-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.replay-modal {
+  background-color: #412b6b;
+  color: #e1e1ff;
+  border: 5px solid #e1e1ff;
+  border-radius: 12px;
+  width: min(420px, 90vw);
+  padding: 24px;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  
+}
+
+.replay-modal p {
+  margin-bottom: 50px;
+}
+
+.replay-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.modal-close {
+  position: relative;
+  right: -48%;
+  background: transparent;
+  border: none;
+  color: #e1e1ff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+@media (max-width: 834px) {
+  .replay-modal-overlay {
+  align-items: flex-start;
+  padding-top: 166px; 
+  }
+
+  .replay-modal {
+    width: min(320px, 90vw);
+    padding: 20px 16px;
+  }
+}
