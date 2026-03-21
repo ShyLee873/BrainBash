@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Score.css';
 import useSound from './Sound';
+import ReplayModal from './ReplayModal';
 
-export default function Score({ score, total, answerHistory }) {
+export default function Score({ score, total, answerHistory, quizSettings, startQuiz, newQuiz }) {
   const [showRecap, setShowRecap] = useState(false);
+  const [showReplayModal, setShowReplayModal] = useState(false);
   const percentage = Math.round((score / total) * 100);
-  const { playSound, stopAudio, stopAllSounds } = useSound();
+  const { playSound } = useSound();
 
   let feedback;
   let grade;
@@ -30,6 +32,11 @@ export default function Score({ score, total, answerHistory }) {
     }
   }, [percentage]);
 
+  const replay = (settings = quizSettings) => {
+    console.log(settings)
+    startQuiz({ ...settings })
+  };
+
   return (
     <div className="score-card">
       <h3>Quiz Complete!</h3>
@@ -42,7 +49,8 @@ export default function Score({ score, total, answerHistory }) {
         <button className="recap" onClick={() => setShowRecap(!showRecap)}>
           {showRecap ? 'Hide Recap' : 'Review Answers'}
         </button>
-        <button className="replay" onClick={() => window.location.reload()}>
+
+        <button className="replay" onClick={() => setShowReplayModal(true)}>
           Play Again
         </button>
       </div>
@@ -74,6 +82,19 @@ export default function Score({ score, total, answerHistory }) {
           </table>
         </div>  
       )}
+
+      <ReplayModal
+        isOpen={showReplayModal}
+        onClose={() => setShowReplayModal(false)}
+        onReplaySame={() => {
+          setShowReplayModal(false);
+          replay();
+        }}
+        onNewQuiz={() =>{
+          setShowReplayModal(false);
+          newQuiz();
+        }}
+      />
     </div>
   );
 }

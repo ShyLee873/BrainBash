@@ -174,7 +174,8 @@ export default function App() {
   };
 
   const startQuiz = (settings) => {
-    setQuizSettings(settings);
+    lastRequestKeyRef.current = null;
+    setQuizSettings({ ...settings });
     setQuestions([]);
     setError(null);
     setScore(0);
@@ -182,6 +183,23 @@ export default function App() {
     setShowScore(false);
     setAnswerHistory([]);
     setQuestionAnswered(false);
+    setRetryTick(0);
+    setTimeLeft(LIGHTNING_TIME);
+    setTimeUp(false);
+  };
+
+  const newQuiz = () => {
+    setQuizSettings(null);
+    setQuestions([]);
+    setError(null);
+    setScore(0);
+    setCurrentIndex(0);
+    setShowScore(false);
+    setAnswerHistory([]);
+    setQuestionAnswered(false);
+    setRetryTick(0);
+    setTimeLeft(LIGHTNING_TIME);
+    setTimeUp(false);
   };
 
   const isQuestionScreen = !!quizSettings && !showScore;
@@ -210,6 +228,9 @@ export default function App() {
           score={score}
           total={questions.length}
           answerHistory={answerHistory}
+          quizSettings={quizSettings}
+          startQuiz={startQuiz}
+          newQuiz={newQuiz}
         />
       ) : questions[currentIndex] ? (
         <Question

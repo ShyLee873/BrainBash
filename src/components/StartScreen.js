@@ -64,7 +64,7 @@ export default function StartScreen({ onStart }) {
             min="1"
             max="50"
             value={amount}
-            onChange={(e) => setAmount(Number(e.target.value) || 1)}
+            onChange={(e) => setAmount(Number(e.target.value) || '')}
           />
         </label>
 

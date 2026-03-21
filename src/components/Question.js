@@ -68,6 +68,7 @@ export default function Question({ question, handleAnswer, currentIndex, totalQu
       question,
       answerToSubmit
     );
+
   };
 
   const maxTime = 7;
