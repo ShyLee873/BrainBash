@@ -7,6 +7,7 @@
   --text-main: light-dark(white, #e1e1ff);
   --border-main: light-dark(white, #e1e1ff);
   --accent-pink: #f601e6;
+  --options-menu: light-dark(navy, #f25912);
 
   --radius-sm: 10px;
   --radius-pill: 999px;
@@ -42,6 +43,60 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   padding-inline: 15px;
+}
+
+/* Options button */
+html.force-dark .bb-button .btn {
+  background-color: #f25912;
+  border: 5px outset #f25912;
+  border-style: outset;
+  border-radius: 20px;
+  color: white;
+}
+
+.dropdown-item {
+  background-color: #412b6b;
+  border: 3px solid #f25912;
+  color: var(--text-main);
+  border-style: inset;
+  text-align: center;
+  font-weight: bold;
+}
+
+.dropdown-item:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.dropdown-item:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+html.force-dark .dropdown-menu.show{
+  background: var(--options-menu);
+  padding: 5px;
+  border: 4px outset #f25912
+}
+
+html.force-light .bb-button .btn {
+  background-color: navy;
+  border-color: navy;
+  color: white;
+}
+
+html.force-dark .bb-button .btn:hover,
+html.force-dark .bb-button .btn:focus,
+html.force-dark .bb-button .btn:active {
+  background-color: #d94e0f;
+  border-color: #d94e0f;
+  color: white;
+}
+
+html.force-light .bb-button .btn:hover,
+html.force-light .bb-button .btn:focus,
+html.force-light .bb-button .btn:active {
+  background-color: navy;
+  border-color: navy;
+  color: white;
 }
 
 .lightToggleContainer,
