@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from './components/Nav';
 import StartScreen from './components/StartScreen';
 import Question from './components/Question';

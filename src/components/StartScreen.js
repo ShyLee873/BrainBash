@@ -68,32 +68,31 @@ export default function StartScreen({ onStart }) {
           />
         </label>
 
-        <label>
-          Game Mode:
-          <label>
+        <div className="mode-group">
+          <span className="mode-label">Game Mode:</span>
+
+          <label className="mode-option">
             <input
-              type="radio" 
+              type="radio"
               value="classic"
               name="mode"
-              className="mode" 
               checked={mode === "classic"}
-              onChange={(e) => setMode(e.target.value)} 
+              onChange={(e) => setMode(e.target.value)}
             />
             Classic
           </label>
 
-          <label>
-            <input 
-              type="radio" 
+          <label className="mode-option tooltip">
+            <input
+              type="radio"
               value="lightning"
               name="mode"
-              className="mode tooltip" 
               checked={mode === "lightning"}
-              onChange={(e) => setMode(e.target.value)} 
+              onChange={(e) => setMode(e.target.value)}
             />
             Lightning
           </label>
-        </label>
+        </div>
 
         <button className="start-button" type="submit">Start Quiz</button>
       </form>
