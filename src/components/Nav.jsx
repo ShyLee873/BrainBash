@@ -1,13 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Nav({
-  theme,
-  onToggleTheme,
-  showQuestionActions,
-  isMuted,
-  onToggleMute,
-  onOpenAbout
-}) {
+export default function Nav({theme, onToggleTheme, showQuestionActions, isMuted, onToggleMute, onOpenAbout}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -50,7 +43,7 @@ export default function Nav({
       <div className="optionsMenu" ref={menuRef}>
         <button
           type="button"
-          className="optionsToggle"
+          className='optionsToggle'
           aria-expanded={menuOpen}
           aria-haspopup="menu"
           aria-label="Open options menu"
@@ -61,7 +54,7 @@ export default function Nav({
         </button>
 
         {menuOpen && (
-          <div className="optionsDropdown" role="menu">
+          <div className={`optionsDropdown ${menuOpen ? "open-overlay" : ""}`} role="menu">
             <button
               type="button"
               className="optionsItem"
@@ -94,6 +87,14 @@ export default function Nav({
             >
               About
             </button>
+
+            <button 
+              type="button" 
+              className="optionClose" 
+              onClick={() => {setMenuOpen(false)}}
+            >
+              ❌
+              </button>
           </div>
         )}
       </div>

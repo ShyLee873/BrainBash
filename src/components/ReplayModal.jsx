@@ -23,8 +23,6 @@ export default function ReplayModal({ isOpen, onClose, onReplaySame, onNewQuiz }
         <button className='replay' onClick={onReplaySame}>Replay</button>
 
         <button className='replay' onClick={onNewQuiz}>New Quiz</button>
-
-        
       </div>
     </Modal>
   );

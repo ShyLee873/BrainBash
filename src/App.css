@@ -405,6 +405,10 @@ body {
   text-decoration-thickness: 2px;
 }
 
+.optionClose {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .header {
     margin-bottom: 20px;
@@ -474,7 +478,7 @@ body {
   }
 }
 
-@media (max-width: 424px) {
+@media (max-width: 425px) {
   .header {
     margin-bottom: 15px;
   }
@@ -528,5 +532,37 @@ body {
 
   .timer-bar {
     height: 8px;
+  }
+
+  .open-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+    transform: scale(0.95);
+    animation: popIn 0.2s ease forwards;
+  }
+
+  .optionsItem:first-child,
+  .optionsItem:last-child, 
+  .optionsItem {
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 26px;
+    width: 154px;
+  }
+
+  .optionClose {
+    display: block;
+    position: absolute;
+    top: 35px;
+    right: 25px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;;
   }
 }
