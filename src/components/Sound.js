@@ -20,7 +20,7 @@ export default function useSound() {
   const stopAllSounds = () => {
     Object.values(sounds.current).forEach((audio) => {
       audio.pause();
-      audio.currentTime();
+      audio.currentTime = 0;
     });
   };
 

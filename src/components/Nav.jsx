@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Nav({theme, onToggleTheme, showQuestionActions, isMuted, onToggleMute, onOpenAbout}) {
+export default function Nav({theme, onToggleTheme, showQuestionActions, onToggleMute, onOpenAbout, muted}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -74,7 +74,7 @@ export default function Nav({theme, onToggleTheme, showQuestionActions, isMuted,
                 setMenuOpen(false);
               }}
             >
-              {isMuted ? "Unmute PH" : "Mute PH"}
+              {muted ? "Unmute 🔈" : "Mute 🔇"}
             </button>
 
             <button

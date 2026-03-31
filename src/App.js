@@ -32,6 +32,7 @@ export default function App() {
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const isLightningMode = quizSettings?.mode === "lightning";
   const { playSound, stopAudio, stopAllSounds } = useSound();
+  const [muted, setMuted] = useState(false);
     // StrictMode guard to prevent double fetch for same request in dev
   const lastRequestKeyRef = useRef(null);
   const retryFetch = useCallback (() => {
@@ -52,6 +53,18 @@ export default function App() {
     setTheme((t) => (t === "dark" ? "light" : "dark"));
   };
 
+  const toggleMute = () => {
+    setMuted(prevMuted => {
+      const nextMuted = !prevMuted;
+
+      if (nextMuted) {
+        stopAllSounds();
+      }
+
+      return nextMuted;
+    });
+  };
+
   // Timer effect
   useEffect(() => {
     if (!quizSettings || showScore) return;
@@ -62,12 +75,14 @@ export default function App() {
 
     if (timeLeft <= 0) {
       setTimeUp(true);
-      stopAudio('countdown');
-      playSound('incorrect');
+      if (!muted) {
+        stopAudio('countdown');
+        playSound('incorrect');
+      }
       return;
     }
 
-    if (timeLeft === 3) {
+    if (timeLeft === 3 && !muted) {
       playSound('countdown');
     }
 
@@ -207,7 +222,12 @@ export default function App() {
 
   return (
     <div className="App">
-      <Nav theme={theme} onToggleTheme={toggleTheme} showQuestionActions={isQuestionScreen} />
+      <Nav theme={theme} 
+      onToggleTheme={toggleTheme} 
+      showQuestionActions={isQuestionScreen}
+      onToggleMute={toggleMute} 
+      muted={muted}
+      />
       <h1 className="header">Brain Bash</h1>
 
       {!quizSettings ? (
@@ -232,6 +252,7 @@ export default function App() {
           quizSettings={quizSettings}
           startQuiz={startQuiz}
           newQuiz={newQuiz}
+          muted={muted}
         />
       ) : questions[currentIndex] ? (
         <Question

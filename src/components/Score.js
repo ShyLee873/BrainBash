@@ -3,11 +3,11 @@ import './Score.css';
 import useSound from './Sound';
 import ReplayModal from './ReplayModal';
 
-export default function Score({ score, total, answerHistory, quizSettings, startQuiz, newQuiz }) {
+export default function Score({ score, total, answerHistory, quizSettings, startQuiz, newQuiz, muted }) {
   const [showRecap, setShowRecap] = useState(false);
   const [showReplayModal, setShowReplayModal] = useState(false);
   const percentage = Math.round((score / total) * 100);
-  const { playSound } = useSound();
+  const { playSound} = useSound();
 
   let feedback;
   let grade;
@@ -25,6 +25,8 @@ export default function Score({ score, total, answerHistory, quizSettings, start
 
   // Play score screen sound once
   useEffect(() => {
+    if (muted) return;
+
     if (percentage <= 60) {
       playSound('fail');
     } else {
