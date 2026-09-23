@@ -25,6 +25,8 @@ export default function useSound() {
   };
 
   const playSound = (soundName) => {
+    const audio = sounds[soundName];
+    if (!audio) return;
     stopAudio(soundName);
     sounds.current[soundName]?.play().catch((error) => {
       console.error(`Could not play ${soundName}: `, error);

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import AboutModal from "./AboutModal";
 
-export default function Nav({theme, onToggleTheme, showQuestionActions, onToggleMute, onOpenAbout, muted}) {
+export default function Nav({theme, onToggleTheme, showQuestionActions, onToggleMute, muted}) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -81,7 +83,8 @@ export default function Nav({theme, onToggleTheme, showQuestionActions, onToggle
               type="button"
               className="optionsItem"
               onClick={() => {
-                onOpenAbout();
+                console.log("about clicked");
+                setAboutOpen(true);
                 setMenuOpen(false);
               }}
             >
@@ -98,6 +101,10 @@ export default function Nav({theme, onToggleTheme, showQuestionActions, onToggle
           </div>
         )}
       </div>
+      <AboutModal
+        isOpen={aboutOpen}
+        onClose={() => setAboutOpen(false)}
+      />
     </div>
   );
 }
