@@ -39,8 +39,12 @@
   text-align: left;
 }
 
-.modal p, h3 {
+.modal p, h3, summary {
   text-align: left !important;
+}
+
+.modal summary {
+  font-weight: bold;
 }
 
 .modal-buttons {

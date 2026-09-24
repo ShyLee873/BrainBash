@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import AboutModal from "./AboutModal";
+import HelpModal from "./HelpModal";
 
 export default function Nav({theme, onToggleTheme, showQuestionActions, onToggleMute, muted}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -90,6 +92,24 @@ export default function Nav({theme, onToggleTheme, showQuestionActions, onToggle
               About
             </button>
 
+            <button
+              type="button"
+              className="optionsItem"
+              onClick={() => {
+                setHelpOpen(true);
+                setMenuOpen(false);
+              }}
+            >
+              Help & FAQs
+            </button>
+
+            <button
+              type="button"
+              className="optionsItem"
+            >
+              Report a Bug
+            </button>
+
             <button 
               type="button" 
               className="optionClose" 
@@ -103,6 +123,11 @@ export default function Nav({theme, onToggleTheme, showQuestionActions, onToggle
       <AboutModal
         isOpen={aboutOpen}
         onClose={() => setAboutOpen(false)}
+      />
+
+      <HelpModal 
+        isOpen={helpOpen}
+        onClose={() => setHelpOpen(false)}
       />
     </div>
   );
