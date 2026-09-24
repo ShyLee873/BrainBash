@@ -83,7 +83,6 @@ export default function Nav({theme, onToggleTheme, showQuestionActions, onToggle
               type="button"
               className="optionsItem"
               onClick={() => {
-                console.log("about clicked");
                 setAboutOpen(true);
                 setMenuOpen(false);
               }}

@@ -10,16 +10,16 @@ export default function ReplayModal({ isOpen, onClose, onReplaySame, onNewQuiz }
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel='Play Again Options'
-      className='replay-modal'
-      overlayClassName='replay-modal-overlay'
+      className='modal'
+      overlayClassName='modal-overlay'
       shouldCloseOnOverlayClick={true}
     >
       <button className='modal-close' onClick={onClose}>❌</button>
 
       <h2>Quick question...</h2>
-      <p>Replay with the same settings or start a new quiz?</p>
+      <p className='replay'>Replay with the same settings or start a new quiz?</p>
       
-      <div className='replay-modal-buttons'>
+      <div className='modal-buttons'>
         <button className='replay' onClick={onReplaySame}>Replay</button>
 
         <button className='replay' onClick={onNewQuiz}>New Quiz</button>
